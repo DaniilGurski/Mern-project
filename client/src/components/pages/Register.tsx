@@ -1,8 +1,7 @@
 import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
 
-// TODO: Move some logic to a seperate form component ?
-export default function Login() {
+export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ username: "", password: "" });
@@ -27,19 +26,15 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/login", {
+      await fetch("http://localhost:8000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
-
-      if (!res.ok) {
-        throw new Error();
-      }
-    } catch {
-      // TODO: Display error message on screen
+    } catch (error) {
+      console.error("Register error", error);
     }
   };
 
@@ -77,7 +72,7 @@ export default function Login() {
           </label>
         </div>
 
-        <Button type="submit"> Login </Button>
+        <Button type="submit"> Register </Button>
       </form>
     </div>
   );

@@ -31,6 +31,14 @@ export default function App() {
                 Login
               </Link>
             </li>
+            <li>
+              <Link
+                className="text-gray-700 hover:text-gray-950 focus:text-gray-950"
+                to="/register"
+              >
+                Register
+              </Link>
+            </li>
           </ul>
         </nav>
       </header>
