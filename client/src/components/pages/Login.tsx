@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
+import { type AuthErrorResponse } from "../../types";
 
 // TODO: Move some logic to a seperate form component ?
 export default function Login() {
@@ -8,15 +9,26 @@ export default function Login() {
   const [errors, setErrors] = useState({ username: "", password: "" });
 
   const validate = () => {
-    if (!username || !password) {
-      setErrors({
-        username: !username ? "Can't be empty" : "",
-        password: !password ? "Can't be empty" : "",
-      });
-      return false;
+    let valid = true;
+    let errors = { username: "", password: "" };
+
+    if (!username) {
+      errors.username = "Can't be empty";
+      valid = false;
     }
 
-    return true;
+    if (!password) {
+      errors.password = "Can't be empty";
+      valid = false;
+    }
+
+    if (password.length < 4) {
+      errors.password = "Min 4";
+      valid = false;
+    }
+
+    setErrors(errors);
+    return valid;
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -32,14 +44,18 @@ export default function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
       });
 
       if (!res.ok) {
-        throw new Error();
+        const error = await res.json();
+        throw error;
       }
-    } catch {
-      // TODO: Display error message on screen
+    } catch (error) {
+      setErrors(error as AuthErrorResponse);
     }
   };
 

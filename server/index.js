@@ -15,8 +15,12 @@ app.use(cors({ origin: ["http://localhost:5173"] }))
 
 // Connect to the database
 mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        app.listen(8000, () => console.log("Server running on port 8000"));
+    })
+    .catch((error) => {
+        console.log(error);
+    })
 
 app.use("/login", login);
 app.use("/register", register);
-
-app.listen(8000, () => console.log("Server running on port 8000"));

@@ -3,14 +3,14 @@ import { Schema, model } from "mongoose";
 const UserSchema = new Schema({
     username: {
         type: String, 
-        required: true, 
-        unique: true,
-        min: 1, 
+        required: [true, "Can't be empty"], 
+        unique: [true, "User already exists"],
     },
 
     password: {
         type: String, 
-        required: true,
+        required: [true, "Can't be empty"],
+        min: [4, "Min 4"],
     }
 }); 
 
