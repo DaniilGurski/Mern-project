@@ -6,11 +6,15 @@ import { type AuthErrorResponse } from "../../types";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ username: "", password: "" });
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+    root: "",
+  });
 
   const validate = () => {
     let valid = true;
-    let errors = { username: "", password: "" };
+    let errors = { username: "", password: "", root: "" };
 
     if (!username) {
       errors.username = "Can't be empty";
@@ -31,6 +35,24 @@ export default function Login() {
     return valid;
   };
 
+  const postLogin = async () => {
+    const res = await fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -39,21 +61,7 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      });
-
-      if (!res.ok) {
-        const error = await res.json();
-        throw error;
-      }
+      await postLogin();
     } catch (error) {
       setErrors(error as AuthErrorResponse);
     }
@@ -94,6 +102,8 @@ export default function Login() {
         </div>
 
         <Button type="submit"> Login </Button>
+
+        {errors.root && <p className="text-red-500"> {errors.root} </p>}
       </form>
     </div>
   );

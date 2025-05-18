@@ -1,15 +1,21 @@
 import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
 import { type AuthErrorResponse } from "../../types";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ username: "", password: "" });
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+    root: "",
+  });
+  const navigate = useNavigate();
 
   const validate = () => {
     let valid = true;
-    let errors = { username: "", password: "" };
+    let errors = { username: "", password: "", root: "" };
 
     if (!username) {
       errors.username = "Can't be empty";
@@ -30,6 +36,28 @@ export default function Register() {
     return valid;
   };
 
+  const postRegister = async () => {
+    const res = await fetch("http://localhost:8000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+      // Accept cookie responses
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw error;
+    }
+
+    navigate("/admin");
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -38,21 +66,7 @@ export default function Register() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      });
-
-      if (!res.ok) {
-        const error = await res.json();
-        throw error;
-      }
+      await postRegister();
     } catch (error) {
       setErrors(error as AuthErrorResponse);
     }
@@ -93,6 +107,8 @@ export default function Register() {
         </div>
 
         <Button type="submit"> Register </Button>
+
+        {errors.root && <p className="text-red-500"> {errors.root} </p>}
       </form>
     </div>
   );
