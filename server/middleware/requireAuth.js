@@ -1,19 +1,16 @@
 import jwt from "jsonwebtoken";
 
 const requireAuth = (req, res, next) => {
-    const token = req.token.jwt;
-
+    const token = req.cookies.jwt;
+    
     if (!token) {
-        return res.redirect("/login"); 
+        return res.status(401).send();
     }
 
     jwt.verify(token, process.env.JWT_SECRET, (error, decodedToken) => {
         if (error) {
-            console.log(error.message);
-            return res.redirect("/login");
+            return res.status(401).send();
         }
-
-        console.log(decodedToken);
         next();
     })
 }

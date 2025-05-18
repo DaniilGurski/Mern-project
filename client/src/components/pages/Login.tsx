@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
 import { type AuthErrorResponse } from "../../types";
+import { useNavigate } from "react-router-dom";
 
-// TODO: Move some logic to a seperate form component ?
+// FIXME: Login is shown even after user logged in
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +12,7 @@ export default function Login() {
     password: "",
     root: "",
   });
+  const navigate = useNavigate();
 
   const validate = () => {
     let valid = true;
@@ -45,12 +47,16 @@ export default function Login() {
         username: username,
         password: password,
       }),
+      // Accept cookie responses
+      credentials: "include",
     });
 
     if (!res.ok) {
       const error = await res.json();
       throw error;
     }
+
+    navigate("/admin", { replace: true });
   };
 
   const handleSubmit = async (e: FormEvent) => {

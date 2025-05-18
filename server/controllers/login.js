@@ -22,7 +22,7 @@ export const postLogin = async (req, res) => {
     }
 
     const token = createToken(userDoc._id, maxAge);
-    
+
     // httpOnly: We can't access and change this cookie on frontend
     // Cookie method expects maxAge to be in milliseconds
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000})
