@@ -5,6 +5,7 @@ import Admin from "./components/pages/Admin";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PostView from "./components/pages/PostView";
 
 // TODO: We need a route for a page with edit form (should it be a seperate route (/edit) or an extention of admin (/admin/3) ?)
 export const router = createBrowserRouter([
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      { path: "/post/:id", element: <PostView /> },
     ],
   },
 ]);

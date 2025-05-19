@@ -4,6 +4,7 @@ import login from "./routes/login.js";
 import register from "./routes/register.js";
 import auth from "./routes/auth.js";
 import logout from "./routes/logout.js";
+import post from "./routes/post.js";
 import requireAuth from "./middleware/requireAuth.js";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
@@ -32,3 +33,4 @@ app.use("/login", login);
 app.use("/register", register);
 app.use("/auth", requireAuth, auth);
 app.use("/logout", requireAuth, logout);
+app.use("/post", post)
