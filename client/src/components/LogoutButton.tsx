@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "./ui/Button";
-import { useAuth } from "./AuthContextProvider";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LogoutButton() {
   const navigate = useNavigate();

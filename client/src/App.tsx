@@ -1,13 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
 import LogoutButton from "./components/LogoutButton";
-import { useAuth } from "./components/AuthContextProvider";
+import { useAuth } from "./hooks/useAuth";
+import MyNavLink from "./components/ui/MyNavLink";
 
 export default function App() {
-  // TODO: Conditionally render links
   const { isAuth } = useAuth();
-
-  console.log("logged in: ", isAuth);
 
   return (
     <>
@@ -15,38 +12,19 @@ export default function App() {
         <nav>
           <ul className="flex justify-end gap-6">
             <li>
-              <Link
-                className="text-gray-700 hover:text-gray-950 focus:text-gray-950"
-                to="/"
-              >
-                Home
-              </Link>
+              <MyNavLink to="/"> Home </MyNavLink>
             </li>
             <li>
-              <Link
-                className="text-gray-700 hover:text-gray-950 focus:text-gray-950"
-                to="/admin"
-              >
-                Admin
-              </Link>
+              <MyNavLink to="/admin"> Admin </MyNavLink>
             </li>
+
             {!isAuth && (
               <>
                 <li>
-                  <Link
-                    className="text-gray-700 hover:text-gray-950 focus:text-gray-950"
-                    to="/login"
-                  >
-                    Login
-                  </Link>
+                  <MyNavLink to="/login"> Login </MyNavLink>
                 </li>
                 <li>
-                  <Link
-                    className="text-gray-700 hover:text-gray-950 focus:text-gray-950"
-                    to="/register"
-                  >
-                    Register
-                  </Link>
+                  <MyNavLink to="/register"> Register </MyNavLink>
                 </li>
               </>
             )}

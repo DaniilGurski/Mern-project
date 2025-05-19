@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
 import { type AuthErrorResponse } from "../../types";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 // FIXME: Login is shown even after user logged in
 export default function Login() {
@@ -13,6 +14,7 @@ export default function Login() {
     root: "",
   });
   const navigate = useNavigate();
+  const { setIsAuth } = useAuth();
 
   const validate = () => {
     let valid = true;
@@ -56,6 +58,8 @@ export default function Login() {
       throw error;
     }
 
+    // Updating isAuth immediately for the navigate() to work
+    setIsAuth(true);
     navigate("/admin", { replace: true });
   };
 
