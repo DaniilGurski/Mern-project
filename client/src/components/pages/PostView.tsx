@@ -1,10 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
-
-type Post = {
-  title: string;
-  body: string;
-};
+import { type Post } from "../../types";
+import MyLink from "../ui/MyLink";
 
 const isPost = (data: unknown): data is Post => {
   if (
@@ -19,24 +16,34 @@ const isPost = (data: unknown): data is Post => {
 
 export default function PostView() {
   const { id } = useParams();
-  const { data, loading, error } = useFetch(`http://localhost:8000/post/${id}`);
+  const {
+    data: post,
+    loading,
+    error,
+  } = useFetch(`http://localhost:8000/posts/${id}`);
 
   if (loading) {
     return <p> Loading ... </p>;
   }
 
   if (error) {
-    return <p> Something went wrong ! </p>;
+    return <p> {error} </p>;
   }
 
-  if (!isPost(data)) {
+  if (!isPost(post)) {
     return;
   }
 
   return (
-    <div>
-      <h1> {data.title} </h1>
-      <p> {data.body} </p>
+    <div className="grid gap-y-8">
+      <article>
+        <h1> {post.title} </h1>
+        <p> {post.body} </p>
+      </article>
+
+      <MyLink to="/" linkStyle="button" className="w-max">
+        Go Back
+      </MyLink>
     </div>
   );
 }

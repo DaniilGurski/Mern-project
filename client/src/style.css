@@ -4,5 +4,14 @@
     body {
         background-color: var(--color-gray-100);
     }
+}
 
+@layer components {
+    .input {
+        padding: calc(var(--spacing) * 2);
+        border-radius: var(--radius-sm);
+        outline-color: var(--color-gray-400);
+        outline-style: var(--tw-outline-style);
+        outline-width: 1px;
+    }
 }

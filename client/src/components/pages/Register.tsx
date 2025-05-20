@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
 import { type AuthErrorResponse } from "../../types";
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../ErrorMessage";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -82,33 +83,28 @@ export default function Register() {
           <label className="grid gap-y-2">
             <span> Username: </span>
             <input
-              className="rounded-sm p-2 outline-1 outline-gray-400"
+              className="input"
               type="text"
               name="username"
               onChange={(e) => setUsername(e.target.value)}
             />
-            {errors.username && (
-              <p className="text-red-500"> {errors.username} </p>
-            )}
+            <ErrorMessage error={errors.username} />
           </label>
 
           <label className="grid gap-y-2">
             <span> Password: </span>
             <input
-              className="rounded-sm p-2 outline-1 outline-gray-400"
+              className="input"
               type="password"
               name="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.password && (
-              <p className="text-red-500"> {errors.password} </p>
-            )}
+            <ErrorMessage error={errors.password} />
           </label>
         </div>
 
         <Button type="submit"> Register </Button>
-
-        {errors.root && <p className="text-red-500"> {errors.root} </p>}
+        <ErrorMessage error={errors.root} />
       </form>
     </div>
   );
