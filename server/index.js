@@ -9,13 +9,21 @@ import edit from "./routes/edit.js";
 import requireAuth from "./middleware/requireAuth.js";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import { fileURLToPath } from "url";
+import path from "path";
 
 const app = express();
+
+export const __filename = fileURLToPath(import.meta.url);
+export const __dirname = path.dirname(__filename);
 
 // Body parser middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
+
+// Setup static folder
+app.use(express.static(path.join(__dirname, "public")))
 
 
 // Allow requests from frontend server

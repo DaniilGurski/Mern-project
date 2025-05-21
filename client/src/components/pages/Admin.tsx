@@ -33,7 +33,10 @@ export default function Admin() {
     <ul className="mx-auto grid max-w-4xl gap-y-3">
       {posts.map(({ title, _id }) => {
         return (
-          <li className="flex justify-between rounded-lg p-4 outline-1 outline-gray-700">
+          <li
+            className="flex justify-between rounded-lg p-4 outline-1 outline-gray-700"
+            key={_id}
+          >
             <span> {title} </span>
 
             <MyLink to={`/edit/${_id}`}> Edit </MyLink>

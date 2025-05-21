@@ -1,18 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
-import { type Post } from "../../types";
+import { isPost } from "../../typeguards";
 import MyLink from "../ui/MyLink";
-
-const isPost = (data: unknown): data is Post => {
-  if (
-    data !== null &&
-    typeof data === "object" &&
-    data.hasOwnProperty("title")
-  ) {
-    return true;
-  }
-  return false;
-};
 
 export default function PostView() {
   const { id } = useParams();
@@ -36,9 +25,14 @@ export default function PostView() {
 
   return (
     <div className="grid gap-y-8">
-      <article>
+      <article className="grid gap-y-4">
         <h1> {post.title} </h1>
         <p> {post.body} </p>
+        <img
+          className="w-2xl rounded-lg"
+          src={`http://localhost:8000/${post.imagePath}`}
+          alt=""
+        />
       </article>
 
       <MyLink to="/" linkStyle="button" className="w-max">

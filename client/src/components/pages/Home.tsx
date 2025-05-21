@@ -30,16 +30,21 @@ export default function Home() {
   }
 
   return (
-    <ul className="mx-auto grid max-w-4xl gap-y-3">
-      {posts.map(({ title, _id }) => {
-        return (
-          <li className="flex justify-between rounded-lg p-4 outline-1 outline-gray-700">
-            <span> {title} </span>
+    <>
+      <ul className="mx-auto grid max-w-4xl gap-y-3">
+        {posts.map(({ title, _id }) => {
+          return (
+            <li
+              className="flex justify-between rounded-lg p-4 outline-1 outline-gray-700"
+              key={_id}
+            >
+              <span> {title} </span>
 
-            <MyLink to={`/posts/${_id}`}> View </MyLink>
-          </li>
-        );
-      })}
-    </ul>
+              <MyLink to={`/posts/${_id}`}> View </MyLink>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }

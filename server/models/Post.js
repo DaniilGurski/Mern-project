@@ -11,7 +11,9 @@ const PostSchema = new Schema({
         required: [true, "Can't be empty"],
     },
 
-    id: Number,
+    imagePath: {
+        type: String,
+    }, 
 }); 
 
 const PostModel = model("Post", PostSchema); 
