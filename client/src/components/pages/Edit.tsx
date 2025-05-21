@@ -93,6 +93,9 @@ export default function Edit() {
 
   return (
     <div>
+      <title> Edit </title>
+      <meta name="description" content="Edit page of my mern project" />
+
       <form
         className="mx-auto grid max-w-4xl gap-y-4 rounded-lg p-4 outline-1 outline-gray-500"
         onSubmit={handleSubmit}

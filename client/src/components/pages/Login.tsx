@@ -80,6 +80,9 @@ export default function Login() {
 
   return (
     <div className="grid h-full place-items-center">
+      <title> Login</title>
+      <meta name="description" content="Login page of my mern project" />
+
       <form
         className="grid w-[100%] max-w-[400px] gap-y-8 rounded-md bg-white p-8 shadow-md shadow-gray-300"
         onSubmit={handleSubmit}

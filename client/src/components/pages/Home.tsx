@@ -31,6 +31,9 @@ export default function Home() {
 
   return (
     <>
+      <title> Home </title>
+      <meta name="description" content="Home page of my mern project" />
+
       <ul className="mx-auto grid max-w-4xl gap-y-3">
         {posts.map(({ title, _id }) => {
           return (

@@ -25,8 +25,11 @@ export default function PostView() {
 
   return (
     <div className="grid gap-y-8">
+      <title> Post </title>
+      <meta name="description" content={`post ${id} view`} />
+
       <article className="grid gap-y-4">
-        <h1> {post.title} </h1>
+        <h1 className="text-2xl font-bold"> {post.title} </h1>
         <p> {post.body} </p>
         <img
           className="w-2xl rounded-lg"
